@@ -1,40 +1,40 @@
 <!-- activity_quiz_creation.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".QuizCreationActivity">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/quizNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Quiz Name"
-        android:inputType="text"
-        android:layout_marginBottom="16dp"/>
+        android:inputType="text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questionsRecyclerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/questionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
 
     <Button
         android:id="@+id/addQuestionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Question"
-        android:layout_gravity="end"
-        android:layout_marginBottom="16dp"/>
+        android:text="Add Question" />
 
     <Button
         android:id="@+id/publishButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Publish Quiz"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/button_background"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Publish Quiz" />
 
 </LinearLayout>
