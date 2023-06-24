@@ -1,0 +1,54 @@
+<!-- question_form.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Question -->
+    <EditText
+        android:id="@+id/questionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter question" />
+
+    <!-- Options -->
+    <EditText
+        android:id="@+id/option1EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Option 1" />
+
+    <EditText
+        android:id="@+id/option2EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Option 2" />
+
+    <EditText
+        android:id="@+id/option3EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Option 3" />
+
+    <EditText
+        android:id="@+id/option4EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Option 4" />
+
+    <!-- Correct Answer -->
+    <TextView
+        android:id="@+id/correctAnswerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correct Answer" />
+
+    <Spinner
+        android:id="@+id/correctAnswerSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/options"
+        android:prompt="@string/select_correct_option" />
+
+</LinearLayout>

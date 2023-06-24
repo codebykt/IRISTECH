@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Quizz</string>
+
     <string name="select_correct_option">Select Correct Option</string>
 
 

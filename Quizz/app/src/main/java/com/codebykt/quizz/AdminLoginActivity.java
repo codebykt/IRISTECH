@@ -1,5 +1,9 @@
 package com.codebykt.quizz;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,49 +18,48 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.FirebaseApp;
+
 
 public class AdminLoginActivity extends AppCompatActivity {
-    private EditText emailEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
 
-    private FirebaseAuth firebaseAuth;
+    private EditText etEmail, etPassword;
+    private Button btnLogin, btnSignup;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        loginButton = findViewById(R.id.loginButton);
-        signupButton = findViewById(R.id.signupButton);
+        FirebaseApp.initializeApp(this);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnSignup = findViewById(R.id.btnSignup);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString().trim();
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(AdminLoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminLoginActivity.this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Perform login with Firebase authentication
-                    firebaseAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(AdminLoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Login successful, navigate to quiz creation activity
-                                        Intent intent = new Intent(AdminLoginActivity.this, QuizCreationActivity.class);
-                                        startActivity(intent);
+                                        Toast.makeText(AdminLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(AdminLoginActivity.this, QuizCreationActivity.class));
                                         finish();
                                     } else {
-                                        // Login failed
-                                        Toast.makeText(AdminLoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AdminLoginActivity.this, "Login Failed. Please try again.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -64,12 +67,10 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the signup activity
-                Intent intent = new Intent(AdminLoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AdminLoginActivity.this, AdminSignupActivity.class));
             }
         });
     }

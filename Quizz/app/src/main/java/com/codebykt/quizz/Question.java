@@ -1,44 +1,79 @@
 package com.codebykt.quizz;
 
-public class Question {
-    private String question;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
-    private int correctAnswerIndex;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public Question(String question, String option1, String option2, String option3, String option4, int correctAnswerIndex) {
-        this.question = question;
-        this.option1 = option1;
-        this.option2 = option2;
-        this.option3 = option3;
-        this.option4 = option4;
-        this.correctAnswerIndex = correctAnswerIndex;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Question implements Parcelable {
+    private String questionText;
+    private List<String> options;
+    private String correctAnswer;
+
+    public Question() {
+        // Default constructor required for Firestore
     }
 
-    public String getQuestion() {
-        return question;
+    public Question(String questionText, List<String> options, String correctAnswer) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
     }
 
-    public String getOption1() {
-        return option1;
+    protected Question(Parcel in) {
+        questionText = in.readString();
+        options = new ArrayList<>();
+        in.readStringList(options);
+        correctAnswer = in.readString();
     }
 
-    public String getOption2() {
-        return option2;
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public String getOption3() {
-        return option3;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
-    public String getOption4() {
-        return option4;
+    public List<String> getOptions() {
+        return options;
     }
 
-    public int getCorrectAnswerIndex() {
-        return correctAnswerIndex;
+    public void setOptions(List<String> options) {
+        this.options = options;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(questionText);
+        dest.writeStringList(options);
+        dest.writeString(correctAnswer);
     }
 }
 
